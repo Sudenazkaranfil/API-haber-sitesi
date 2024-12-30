@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Haberler</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1 id="latest-news">En Güncel Haberler</h1>
+    <nav>
+      <div id="language-selector">
+        <span id="language-text">Dil Seçiniz:</span>
+        <img src="images/turkish-flag.png" alt="Türkçe" data-lang="tr" class="language-icon">
+        <img src="images/english-flag.png" alt="English" data-lang="en" class="language-icon">
+      </div>
+      <div id="search-container">
+        <input type="text" id="search-bar" placeholder="Kategori Ara...">
+        <button id="search-btn">Ara</button>
+      </div>
+      <button class="category-btn" data-category="general">Genel</button>
+      <button class="category-btn" data-category="health">Sağlık</button>
+      <button class="category-btn" data-category="technology">Teknoloji</button>
+      <button class="category-btn" data-category="economy">Ekonomi</button>
+      <button id="back-to-home">Ana Sayfaya Dön</button>
+    </nav>
+  </header>
+
+  <div id="home-page">
+    <h2 id="welcome-message">Hoş Geldiniz!</h2>
+    <p id="choose-category-message">Kategorilerden birini seçerek haberleri görüntüleyebilirsiniz.</p>
+  </div>
+
+  <div id="loading" style="display: none;">Haberler yükleniyor...</div>
+  <div id="news-container"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
