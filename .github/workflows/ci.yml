@@ -1,29 +1,30 @@
-name: API Test Workflow
+name: Node.js CI
 
 on:
   push:
     branches:
+      - add-tests
       - main
   pull_request:
     branches:
+      - add-tests
       - main
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Check out code
-        uses: actions/checkout@v2
+    - name: Check out repository
+      uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # Veya kullandığınız sürümü yazabilirsiniz
 
-      - name: Install dependencies
-        run: |
-          npm install
+    - name: Install dependencies
+      run: npm install
 
-      - name: Run API test
-        run: |
-          node api-test.js
+    - name: Run tests
+      run: npm test
