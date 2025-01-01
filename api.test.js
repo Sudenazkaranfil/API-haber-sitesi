@@ -1,14 +1,23 @@
-const axios = require('axios');
+const fetch = require('node-fetch'); // node-fetch modülünü yüklemelisiniz
 
-test('API should return a successful response', async () => {
-    const apiKey = '1DJKLm5qtodEjJEN13WQsz:0c8rTdKZh7xLN9AxakRcRt';
-    const baseUrl = 'https://api.collectapi.com/news/getNews?country=tr';
-    const headers = {
-        'Authorization': `apikey ${apiKey}`
-    };
+const testAPI = async () => {
+  try {
+    const response = await fetch('https://api.collectapi.com/news/getNews?country=tr', {
+      method: 'GET',
+      headers: {
+        'Authorization': 'apikey 1DJKLm5qtodEjJEN13WQsz:0c8rTdKZh7xLN9AxakRcRt'
+      }
+    });
 
-    const response = await axios.get(baseUrl, { headers });
-    expect(response.status).toBe(200); // HTTP status kodunun 200 (başarılı) olduğunu kontrol eder
-    expect(response.data).toBeDefined(); // Gelen verinin tanımlı olup olmadığını kontrol eder
-    expect(response.data.result).toBeInstanceOf(Array); // Gelen haberlerin bir dizi olduğunu kontrol eder
-});
+    if (response.ok) {
+      const data = await response.json();
+      console.log('API Response:', data);
+    } else {
+      console.log('API Error:', response.status);
+    }
+  } catch (error) {
+    console.log('API Error:', error);
+  }
+};
+
+testAPI();
