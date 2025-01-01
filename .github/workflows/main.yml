@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Run API Tests
 
 on:
   push:
@@ -9,14 +9,19 @@ on:
       - main
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
+      - name: Check out code
+        uses: actions/checkout@v2
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '22'
-      - run: npm install
-      - run: npm test
+
+      - name: Install dependencies (if needed)
+        run: npm install
+
+      - name: Run API Test
+        run: node api.test.js
