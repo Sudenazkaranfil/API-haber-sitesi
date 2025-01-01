@@ -15,10 +15,5 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
-      - name: Set up Node.js (Optional if needed)
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'  # Eğer Node.js sürümüne gerek yoksa bu adımı kaldırabilirsiniz
-
       - name: Run API Test
         run: node api.test.js  # Bağımlılık gerektirmeden doğrudan çalıştır
