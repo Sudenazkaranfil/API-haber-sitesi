@@ -1,29 +1,44 @@
-const fetch = require('node-fetch');
+const https = require('https');
 
-const testAPI = async () => {
-  try {
-    const response = await fetch('https://api.collectapi.com/news/getNews?country=tr', {
-      method: 'GET',
-      headers: {
-        'Authorization': 'apikey 1DJKLm5qtodEjJEN13WQsz:0c8rTdKZh7xLN9AxakRcR',
-        'Content-Type': 'application/json'
-      }
+// API test fonksiyonu
+const testAPI = () => {
+  const options = {
+    hostname: 'api.collectapi.com',
+    path: '/news/getNews?country=tr',
+    method: 'GET',
+    headers: {
+      'Authorization': 'apikey 1DJKLm5qtodEjJEN13WQsz:0c8rTdKZh7xLN9AxakRcR',
+      'Content-Type': 'application/json'
+    }
+  };
+
+  const req = https.request(options, (res) => {
+    let data = '';
+
+    res.on('data', chunk => {
+      data += chunk;
     });
 
-    // API yanıtının başarılı olup olmadığını kontrol et
-    if (response.ok) {
-      const data = await response.json();
-      console.log('Test passed: API is reachable.');
-      console.log('Response Data:', data); // Yanıtı yazdır
-    } else {
-      console.log('Test failed: API returned a non-200 status code.');
-      console.log('Status Code:', response.status);
-    }
-  } catch (error) {
+    res.on('end', () => {
+      // API yanıtını kontrol et
+      if (res.statusCode === 200) {
+        console.log('Test passed: API is reachable.');
+        console.log('Response Data:', JSON.parse(data)); // Yanıtı yazdır
+      } else {
+        console.log('Test failed: API returned a non-200 status code.');
+        console.log('Status Code:', res.statusCode);
+      }
+    });
+  });
+
+  req.on('error', (error) => {
     console.log('Test failed: API is not reachable.');
     console.error(error);
-  }
+  });
+
+  req.end();
 };
 
 // Testi çalıştır
 testAPI();
+
